@@ -1,0 +1,58 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FirstProject"
+        xmlns:ViewModel="clr-namespace:FirstProject.ViewModel" x:Class="FirstProject.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="430" Width="570">
+
+    <Window.DataContext>
+        <ViewModel:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="128*"/>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="129*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="221*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="24*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="21*"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="290*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="waiting" Content="Waiting for:" Grid.Column="1" Grid.Row="2" Margin="10,0,41,0"/>
+        <ListBox x:Name="listBox" Grid.Column="1" Margin="13,0" Grid.Row="3" ItemsSource="{Binding WaitingTrucks}" SelectedItem="{Binding SelectedWaitingTruck}"  />
+
+        <Label x:Name="ready" Content="Ready:" Grid.Column="2" Grid.Row="2" Margin="0,0,120,3" Grid.ColumnSpan="2"/>
+        <ListBox x:Name="listBox2" Grid.Column="3" Margin="10,0" Grid.Row="3" ItemsSource="{Binding ReadyTrucks}" SelectedItem="{Binding SelectedReadyTruck}" />
+
+        <Label x:Name="details" Content="Details:" Grid.Column="5" Grid.Row="2" Margin="5,0,52,3"/>
+
+        <DataGrid x:Name="dataGrid" Margin="5,0,0,0" Grid.Column="5" Grid.Row="3" ItemsSource="{Binding SelectedReadyTruck.Truckload}" AutoGenerateColumns="False"  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" />
+                <DataGridTextColumn Header="Weight" Binding="{Binding Weight}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name="btn_ready" Content="&gt;&gt;" Width="20" Height="25" Margin="10,130,10,120" Grid.Column="2" Grid.Row="3" Command="{Binding ShiftTrucktoReady}" />
+        <Button x:Name="btn_clear" Content="Clear" Width="510" Height="20" Margin="10,10,0,6" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="5" Command="{Binding DeleteBtnClicked}" />
+        <Button x:Name="btn_start" Content="Start Connecting" Width="105" Height="20" Margin="0,0,108,0" Grid.Column="5" Grid.Row="1" Command="{Binding StartGenBtnClicked}" />
+        <Button x:Name="btn_stop" Content="Stop Connecting" Width="105" Height="20" Margin="110,0,0,0" Grid.Column="5" Grid.Row="1" Command="{Binding StopGenBtnClicked}" />
+
+
+    </Grid>
+</Window>
